@@ -1,0 +1,41 @@
+*{padding:0;margin:0;}
+li{list-style:none;}
+a,
+a:visited {text-decoration:none;}
+a.button {display:block;position:relative;width:120px;padding:0;margin:50px auto;font-weight:600;text-align:center;line-height:50px;color:#FFF;border-radius:5px;transition:all 0.2s ;}
+.btnBlueGreen {background: #a4d0ff;}
+.btnBlueGreen.btnPush {box-shadow: 0px 5px 0px 0px #547dab;}
+.btnPush:hover {transform:translateY(5px);}
+.btnBlueGreen.btnPush:hover {box-shadow: 0px 0px 0px 0px #007144;}
+.btnBlueGreen.btnFloat:before {background:#00AE68;}
+
+.wrap{width:990;margin:0 auto;}
+@media screen and (max-width: 1000px) {
+	.wrap {
+        width:100%;
+        max-width: 750px;
+        min-width: 320px;
+        padding:20px;
+        box-sizing: border-box;
+	}
+}
+/* main */
+.wrap .main{padding-top:80px;width:100%;}
+.wrap h2{text-align:center;padding-top:20px;letter-spacing:-2px;}
+/* card_section */
+.wrap .card_section ul{display:flex;flex-wrap:wrap;justify-content:center;}
+/* card */
+.wrap .card_section ul li{width:200px;height:279px;perspective: 1100px;margin:0 10px 20px 0;transition: .2s;}
+.wrap .card_section ul li .card_wrap{ width: 100%; height: 100%; position: relative;transition: .3s;transform-style: preserve-3d;}
+.wrap .card_section ul li .card_wrap .front,
+.wrap .card_section ul li .card_wrap .back{ position: absolute;width: 100%; height: 100%;backface-visibility: hidden;border-radius:17px;box-shadow: 5px 5px 20px #ccc;}
+.wrap .card_section ul li .card_wrap .front {background:url('./img/card_img.jpg') 0 0 / 100%;}
+.wrap .card_section ul li .card_wrap .back {transform: rotateY(180deg);border:solid 10px #714f4f;box-sizing:border-box;}
+.wrap .card_section ul li.card01 .card_wrap .back {background:url('./img/card01.webp') 0 30px/ 100% no-repeat;}
+.wrap .card_section ul li.card02 .card_wrap .back {background:url('./img/card02.webp') 0 30px/ 100% no-repeat;}
+.wrap .card_section ul li.card03 .card_wrap .back {background:url('./img/card03.webp') 0 30px/ 100% no-repeat;}
+.wrap .card_section ul li.card04 .card_wrap .back {background:url('./img/card04.webp') 0 30px/ 100% no-repeat;}
+.wrap .card_section ul li.card05 .card_wrap .back {background:url('./img/card05.webp') 0 30px/ 100% no-repeat;}
+.wrap .card_section ul li.card06 .card_wrap .back {background:url('./img/card06.webp') 0 30px/ 100% no-repeat;}
+.wrap .card_section ul li .card_wrap.on{transform: rotateY(180deg);}
+.wrap .card_section ul li.off{opacity:0;}
