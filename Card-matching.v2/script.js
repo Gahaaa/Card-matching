@@ -1,5 +1,5 @@
 // 카드개수
-const cardNumber = 6;
+const cardNumber = 9;
 
 // 카드 랜덤
 let randomIndexArray = []
@@ -98,7 +98,7 @@ function removeOn(){
 };
 
 function clearGame(){
-    if(document.querySelectorAll('.card_section ul li.off').length == 12) {
+    if(document.querySelectorAll('.card_section ul li.off').length == cardNumber*2) {
         document.querySelector('.card_section').style.display = 'none';
         document.querySelector('.result').style.display = 'block';
     }
