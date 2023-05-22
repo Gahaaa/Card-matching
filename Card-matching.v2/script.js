@@ -4,7 +4,7 @@ const cardNumber = 6;
 // 카드 랜덤
 let randomIndexArray = []
 for (i=0; i<cardNumber*2; i++) {
-  randomNum = Math.floor(Math.random() * 12)+1;
+  randomNum = Math.floor(Math.random() * (cardNumber*2))+1;
   if (randomIndexArray.indexOf(randomNum) === -1) {
     randomIndexArray.push(randomNum)
   } else {
