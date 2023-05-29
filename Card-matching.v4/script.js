@@ -90,8 +90,9 @@ let animationStop = false;
 let opportunity =0;
 let lifeIndex =document.querySelectorAll('.card_section .top_menu .life li').length;
 let hintCount= 2;
-const cardWrap = document.querySelectorAll('.card_section > ul > li .card_wrap');
 const hintBtn= document.querySelector('.hint_section .btn_hint');
+const hintNum = document.querySelector('.top_menu .hint_section p strong');
+const backBtn = document.querySelector('.top_menu .btn_back');
 
 document.querySelector('.main .button').addEventListener('click', function() {
   setGame();
@@ -118,6 +119,7 @@ function cardOpen() {
   }
 }
 
+
 function cardMatch(cardElement) {
   const liClass = cardElement.closest('li').className;
   elArr.push(liClass);
@@ -134,7 +136,8 @@ function cardMatch(cardElement) {
       }, 800);
       setTimeout(clearGame, 1000);
     } else {
-      // 일치하지 않는 카드 처리
+       // 일치하지 않는 카드 처리
+
       setTimeout(removeOn, 800);
       opportunity+=1;
       removeLife();
@@ -144,9 +147,13 @@ function cardMatch(cardElement) {
       animationStop = false;
     }, 200);
   }
+
+  
 }
 
 function removeOn() {
+  const cardWrap = document.querySelectorAll('.card_section > ul > li .card_wrap');
+  
   cardWrap.forEach(function(item) {
     item.classList.remove('on');
   });
@@ -155,7 +162,7 @@ function removeOn() {
 
 function clearGame() {
   const cardWrap = document.querySelectorAll('.card_section > ul > li .card_wrap');
-  if (document.querySelectorAll('.card_section ul li.off').length === cardWrap.length) {
+  if (document.querySelectorAll('.card_section > ul li.off').length === cardWrap.length) {
     document.querySelector('.card_section').style.display = 'none';
     document.querySelector('.result').style.display = 'block';
   }
@@ -185,8 +192,31 @@ function removeLife(){
 
 // 힌트 클릭이벤트
 hintBtn.addEventListener('click', function(){
+  const cardWrap = document.querySelectorAll('.card_section > ul > li .card_wrap');
+  
+  if(hintCount <= 0){
+    hintBtn.classList.add('off');
+    hintNum.innerText='0';
+    return false;
+  }
+
   // 카드 뒤집는 이벤트
+  cardWrap.forEach(function(item) {
+    item.classList.add('on');
+  });
+  animationStop = true;
+  setTimeout(function() {
+    cardWrap.forEach(function(item) {
+      item.classList.remove('on');
+    });
+    animationStop = false;
+  }, 2500);
   hintCount-=1;
 
-  document.querySelector('.top_menu .hint_section p strong').innerText=`${hintCount}`
+  hintNum.innerText=`${hintCount}`
+});
+
+// 뒤로가기 버튼
+backBtn.addEventListener('click', function(){
+  reload();
 })
