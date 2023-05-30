@@ -1,6 +1,8 @@
+// 옵션1 카드 장수
 const selectedElement = document.getElementById("card_option");
 let optionVal = selectedElement.options[selectedElement.selectedIndex].value;
 
+// 옵션2 카드 이미지
 const selectedElement2 = document.getElementById("card_option2");
 let optionVal2 = selectedElement2.options[selectedElement2.selectedIndex].value;
 
@@ -12,6 +14,7 @@ selectedElement2.addEventListener('change', function() {
   optionVal2 = selectedElement2.options[selectedElement2.selectedIndex].value;
 });
 
+// 카드 세팅
 function setGame() {
 
   const mainBtn= document.querySelector('.main .button'); 
@@ -100,6 +103,8 @@ document.querySelector('.main .button').addEventListener('click', function() {
   document.querySelector('.main').style.display = 'none';
   document.querySelector('.card_section').style.display = 'block';
   const cardWrap = document.querySelectorAll('.card_section > ul > li .card_wrap');
+
+  // 카드 처음등장 뒤집는 애니메이션
   cardWrap.forEach(function(item) {
     item.classList.add('on');
   });
@@ -122,22 +127,29 @@ function cardOpen() {
 
 function cardMatch(cardElement) {
   const liClass = cardElement.closest('li').className;
+
+  // 이미 맞은 카드 cardMatch 실행 안 함
+  if(liClass == 'off'){
+    return false;
+  }
+
   elArr.push(liClass);
   animationStop = true;
 
   if (elArr.length % 2 === 0) {
     if (elArr[elArr.length - 1] === elArr[elArr.length - 2]) {
+
       // 일치하는 카드 처리
       setTimeout(function() {
         document.querySelectorAll(`.${liClass}`).forEach(function(item) {
-          item.classList.add('off');
+          item.classList.replace(liClass,'off');
         });
+
         animationStop = false;
       }, 800);
       setTimeout(clearGame, 1000);
     } else {
        // 일치하지 않는 카드 처리
-
       setTimeout(removeOn, 800);
       opportunity+=1;
       removeLife();
