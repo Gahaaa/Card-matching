@@ -46,6 +46,10 @@ a.button {display:block;position:relative;width:120px;padding:0;margin:50px auto
 .wrap .card_section > ul > li .card_wrap.on{transform: rotateY(180deg);}
 .wrap .card_section > ul > li.off{opacity:0;}
 
+/* 결과화면 */
+.fail_section,
+.result{padding-top:110px;}
+
 /* 이미지선택->마리오 */
 .wrap .card_section .mario li.card01 .card_wrap .back {background:url('../img/card_v2_01.webp') 0 30px/ 100% no-repeat;}
 .wrap .card_section .mario li.card02 .card_wrap .back {background:url('../img/card_v2_02.webp') 32px 32px/ 58% no-repeat;}
@@ -65,7 +69,7 @@ a.button {display:block;position:relative;width:120px;padding:0;margin:50px auto
 .top_menu a.btn_back{background-image:url(../img/go_back.png);width:43px;height:43px;background-size:100%;}
 .top_menu a.btn_hint{background-image:url(../img/hint_icon.png);background-size:100%;background-position:50%;width:50px;height:50px;}
 .top_menu a.btn_hint.off{opacity:.5;cursor:not-allowed;}
-.top_menu .hint_section{display:flex;align-items: center;margin-left:-50%;}
+.top_menu .hint_section{display:flex;align-items: center;margin-left:-41%;}
 .top_menu .hint_section p{margin-left:10px;letter-spacing:-1px;font-size:18px;}
 .top_menu .life ul{padding:0;}
 .top_menu .life ul li{width:40px;height:40px;background-image:url(../img/life_img.png);background-size:100%;}
