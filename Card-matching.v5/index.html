@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" conetent="width-device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+    <title>카드 뒤집기.v5</title>
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <script src="./script.js" defer></script>
+</head>
+<body>
+    <div class="wrap">
+        <div class="main">
+            <h2>카드 뒤집기.v5</h2>
+            <div class="select_area">
+                <select id="card_option">
+                    <option selected disabled value="0">카드 장수 선택</option>
+                    <option value="6">12장</option>
+                    <option value="7">14장</option>
+                    <option value="8">16장</option>
+                    <option value="9">18장</option>
+                </select>
+                <select id="card_option2">
+                    <option selected disabled value="0">카드 이미지</option>
+                    <option value="1">포켓몬</option>
+                    <option value="2">마리오</option>
+                </select>
+            </div>
+            <a class="button btnPush btnBlueGreen" href="javascript:void(0)">START</a>
+        </div>
+        <div class="card_section" style="display:none;">
+            <div class="top_menu">
+                <div class="bg"></div>
+                <a class="btn_back" href="#;">go-back</a>
+                <div class="hint_section">
+                    <a class="btn_hint" href="#;">hint</a>
+                    <p>남은 힌트 : <strong>2</strong></p>
+                </div>
+                <p id="stopwatch" >00:00:00</p>
+                <div class="life">
+                    <ul>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                    </ul>
+                </div>
+            </div>
+            <ul>
+            </ul>
+        </div>
+        <div class="fail_section" style="display:none;">
+            <h2>😥Game over😥</h2>
+            <a class="button btnPush btnBlueGreen" href="javascript:void(0)" onclick="reload()">RETRY</a>
+        </div>
+        <div class="result" style="display:none;">
+            <h2>🎉축하합니다🎉</h2>
+            <a class="button btnPush btnBlueGreen" href="javascript:void(0)" onclick="reload()">RETRY</a>
+            <div class="record">
+                <h3>기록</h3>
+                <ul>
+                    <li><b>카드</b> : <span>0</span><b>힌트사용</b> : <span>0</span><b>틀린 개수</b> : <span>0</span><b>걸린 시간</b> : <span class="time">0</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
