@@ -177,14 +177,24 @@ function removeOn() {
 // 게임완료
 function clearGame() {
   const cardWrap = document.querySelectorAll('.card_section > ul > li .card_wrap');
-  const clearRecord = document.querySelectorAll('.result .record .time');
+  const clearCard = document.querySelector('.result .record .card_num');
+  const clearHint = document.querySelector('.result .record .hint_num');
+  const clearLife = document.querySelector('.result .record .life_num');
+  const clearTime = document.querySelector('.result .record .time');
 
   if (document.querySelectorAll('.card_section > ul li.off').length === cardWrap.length) {
     document.querySelector('.card_section').style.display = 'none';
     document.querySelector('.result').style.display = 'block';
 
     stopClock();
-    clearRecord.innerText= timerTxt;
+    console.log(opportunity)
+    
+    // 기록출력
+    // addRecord(); 이녀석
+    clearCard.innerText= optionVal * 2;
+    clearHint.innerText= hintCount== 2 ? 0 : 2 - hintCount;
+    clearLife.innerText= opportunity;
+    clearTime.innerText= timerTxt;
   }
   
   
@@ -289,4 +299,35 @@ function getTimeFormatString() {
     timerTxt= String(hour).padStart(2, '0') + ":" + String(min).padStart(2, '0') + ":" + String(sec).padStart(2, '0');
 
     return timerTxt;
+}
+
+function addRecord(){
+  // 게임 기록 생성
+  const tableRow = document.createElement('tr');
+
+  const cells = [
+    { className: 'card_num', text: '장' },
+    { className: 'hint_num', text: '번' },
+    { className: 'life_num', text: '번' },
+    { className: 'time', text: '' }
+  ];
+
+  cells.forEach(cell => {
+    const td = document.createElement('td');
+    const span = document.createElement('span');
+    span.className = cell.className;
+    td.appendChild(span);
+    td.appendChild(document.createTextNode(cell.text));
+    tableRow.appendChild(td);
+  });
+
+  const table = document.querySelector('.result .record table tbody');
+  table.appendChild(tableRow);
+
+  // clearCard.innerText= optionVal * 2;
+  // clearHint.innerText= hintCount== 2 ? 0 : 2 - hintCount;
+  // clearLife.innerText= opportunity;
+  // clearTime.innerText= timerTxt;
+  // 아니 왜 안 돼
+
 }

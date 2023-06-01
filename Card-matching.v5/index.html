@@ -57,9 +57,26 @@
             <a class="button btnPush btnBlueGreen" href="javascript:void(0)" onclick="reload()">RETRY</a>
             <div class="record">
                 <h3>기록</h3>
-                <ul>
-                    <li><b>카드</b> : <span>0</span><b>힌트사용</b> : <span>0</span><b>틀린 개수</b> : <span>0</span><b>걸린 시간</b> : <span class="time">0</span></li>
-                </ul>
+                <table cellspacing="0" cellpadding="0">
+                    <colgroup>
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th>카드</th>
+                            <th>힌트사용</th>
+                            <th>틀린 개수</th>
+                            <th>걸린 시간</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="card_num"></span>장 </td>
+                            <td><span class="hint_num"></span>번</td>
+                            <td><span class="life_num"></span>번</td>
+                            <td><span class="time"></span></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
