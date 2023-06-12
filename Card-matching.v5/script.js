@@ -1,3 +1,4 @@
+
 // 옵션1 카드 장수
 const selectedElement = document.getElementById("card_option");
 let optionVal = selectedElement.options[selectedElement.selectedIndex].value;
@@ -94,6 +95,24 @@ let hintCount= 2;
 const hintBtn= document.querySelector('.hint_section .btn_hint');
 const hintNum = document.querySelector('.top_menu .hint_section p strong');
 const backBtn = document.querySelector('.top_menu .btn_back');
+const lifeEl = document.querySelectorAll('.card_section .top_menu .life li');
+
+// 변수 초기화
+function reset(){
+  elArr = [];
+  opportunity =0;
+  hintCount= 2;
+
+  lifeEl.forEach(function(item) {
+    item.classList.remove('off');
+  });
+
+  hintBtn.classList.remove('off');
+  hintNum.innerText='2';
+  
+
+}
+
 
 document.querySelector('.main .button').addEventListener('click', function() {
   setGame();
@@ -148,11 +167,11 @@ function cardMatch(cardElement) {
         });
 
         animationStop = false;
-      }, 800);
+      }, 700);
       setTimeout(clearGame, 1000);
     } else {
        // 일치하지 않는 카드 처리
-      setTimeout(removeOn, 800);
+      setTimeout(removeOn, 700);
       opportunity+=1;
       removeLife();
     }
@@ -177,10 +196,7 @@ function removeOn() {
 // 게임완료
 function clearGame() {
   const cardWrap = document.querySelectorAll('.card_section > ul > li .card_wrap');
-  const clearCard = document.querySelector('.result .record .card_num');
-  const clearHint = document.querySelector('.result .record .hint_num');
-  const clearLife = document.querySelector('.result .record .life_num');
-  const clearTime = document.querySelector('.result .record .time');
+  
 
   if (document.querySelectorAll('.card_section > ul li.off').length === cardWrap.length) {
     document.querySelector('.card_section').style.display = 'none';
@@ -189,12 +205,8 @@ function clearGame() {
     stopClock();
     console.log(opportunity)
     
-    // 기록출력
-    // addRecord(); 이녀석
-    clearCard.innerText= optionVal * 2;
-    clearHint.innerText= hintCount== 2 ? 0 : 2 - hintCount;
-    clearLife.innerText= opportunity;
-    clearTime.innerText= timerTxt;
+   
+    saveRecord();
   }
   
   
@@ -203,7 +215,13 @@ function clearGame() {
 function reload() {
   stopClock();
   resetClock();
-  window.location.reload();
+  // window.location.reload();
+  document.querySelector('.result').style.display = 'none';
+  document.querySelector('.fail_section').style.display = 'none';
+  document.querySelector('.card_section').style.display = 'none';
+  document.querySelector('.main').style.display = 'block';
+  reset();
+
 }
 
 // 목숨 제거
@@ -218,7 +236,6 @@ function removeLife(){
     }, 800)
   }
 
-  const lifeEl = document.querySelectorAll('.card_section .top_menu .life li');
   setTimeout(function(){
     lifeEl.item(opportunity-1).classList.add('off')
     
@@ -301,8 +318,26 @@ function getTimeFormatString() {
     return timerTxt;
 }
 
-function addRecord(){
-  // 게임 기록 생성
+const Record_KEY = "records"
+let recordsArr = [];
+
+function saveRecord(){
+
+  const records = {
+      card: optionVal * 2, 
+      hint: hintCount== 2 ? 0 : 2 - hintCount,
+      life: opportunity,
+      time: timerTxt,
+    };
+
+  recordsArr.push(records);
+
+  localStorage.setItem(Record_KEY, JSON.stringify(recordsArr));
+
+  addRecord(records);
+}
+
+function addRecord(record) {
   const tableRow = document.createElement('tr');
 
   const cells = [
@@ -324,10 +359,17 @@ function addRecord(){
   const table = document.querySelector('.result .record table tbody');
   table.appendChild(tableRow);
 
-  // clearCard.innerText= optionVal * 2;
-  // clearHint.innerText= hintCount== 2 ? 0 : 2 - hintCount;
-  // clearLife.innerText= opportunity;
-  // clearTime.innerText= timerTxt;
-  // 아니 왜 안 돼
+  const recordCells = tableRow.querySelectorAll('td > span');
+  recordCells[0].innerText = record.card;
+  recordCells[1].innerText = record.hint;
+  recordCells[2].innerText = record.life;
+  recordCells[3].innerText = record.time;
+}
 
+const saveRecords =localStorage.getItem(Record_KEY)
+
+if(saveRecords){
+  const parseRecords = JSON.parse(saveRecords);
+  recordsArr = parseRecords;
+  parseRecords.forEach(addRecord);
 }
