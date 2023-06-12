@@ -48,6 +48,10 @@ function getTimeFormatString() {
 }
 ```
 
+타이머 정리하기
+padStart, 
+
+
 <br>
 
 ---
@@ -112,6 +116,9 @@ if(saveRecords){
   parseRecords.forEach(addRecord);
 }
 ```
+localStorage 관련 정리 하기
+JSON.parse
+localStorage.getItem
 
 
 ## v6 목표

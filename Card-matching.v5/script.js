@@ -246,6 +246,7 @@ function removeLife(){
 hintBtn.addEventListener('click', function(){
   const cardWrap = document.querySelectorAll('.card_section > ul > li .card_wrap');
   
+  //힌트소진시
   if(hintCount <= 0){
     hintBtn.classList.add('off');
     hintNum.innerText='0';
@@ -318,6 +319,7 @@ function getTimeFormatString() {
     return timerTxt;
 }
 
+// 결과 화면 기록 관련
 const Record_KEY = "records"
 let recordsArr = [];
 
@@ -336,6 +338,7 @@ function saveRecord(){
 
   addRecord(records);
 }
+
 
 function addRecord(record) {
   const tableRow = document.createElement('tr');
@@ -368,8 +371,10 @@ function addRecord(record) {
 
 const saveRecords =localStorage.getItem(Record_KEY)
 
+// localStorage기록 있을 시
 if(saveRecords){
   const parseRecords = JSON.parse(saveRecords);
   recordsArr = parseRecords;
   parseRecords.forEach(addRecord);
+  // 각 기록을 addRecord 함수로 전달하여 테이블에 추가
 }
