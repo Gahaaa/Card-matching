@@ -48,8 +48,42 @@ function getTimeFormatString() {
 }
 ```
 
-타이머 정리하기
-padStart, 
+1. 함수 startClock에서 setTimeout으로 time 1초마다 커짐
+
+2. stopClock 계속 실행되도 하단에 setTimeout 실행되고 있기에 시계 멈추지 않음
+
+3. getTimeFormatString에서 사용된 padStart
+```js
+//padStart()
+const str1 = '5';
+
+console.log(str1.padStart(2, '0'));
+// Expected output: "05"
+
+const fullNumber = '2034399002125581';
+const last4Digits = fullNumber.slice(-4);
+const maskedNumber = last4Digits.padStart(fullNumber.length, '*');
+
+console.log(maskedNumber);
+// Expected output: "************5581"
+
+
+//padEnd()
+const str1 = 'Breaded Mushrooms';
+
+console.log(str1.padEnd(25, '.'));
+// Expected output: "Breaded Mushrooms........"
+
+const str2 = '200';
+
+console.log(str2.padEnd(5));
+// Expected output: "200  "
+
+
+```
+현재 문자열에 다른 문자열을 채워, 주어진 길이를 만족하는 새로운 문자열을 반환
+
+padStart(좌측부터) padEnd(우측부터)
 
 
 <br>
@@ -116,9 +150,36 @@ if(saveRecords){
   parseRecords.forEach(addRecord);
 }
 ```
-localStorage 관련 정리 하기
-JSON.parse
-localStorage.getItem
+Record_KEY로 localStorage에 const records 형태로 저장.
+
+localStorage에 Record_KEY 가 있으면 addRecord()로 기록출력
+
+<br>
+
+**1. setItem(key, value)**
+
+```js
+localStorage.setItem(Record_KEY, JSON.stringify(recordsArr));
+
+//JSON.stringify(): JavaScript 값이나 객체를 JSON 문자열로 변환
+
+```
+storage에 저장된 데이터는 모두 문자열만 사용 가능하여 value인 data를 문자열로 변환해 주어야함
+
+
+<br>
+
+**2. getItem(key)**
+
+```js
+const saveRecords =localStorage.getItem(Record_KEY)
+
+const parseRecords = JSON.parse(saveRecords);
+//JSON.parse(): JSON 문자열의 구문을 분석하고, 그 결과에서 JavaScript 값이나 객체를 생성
+```
+
+getItem을 통해 해당 키에 있는 데이터들을 불러올 수 있음
+
 
 
 ## v6 목표
