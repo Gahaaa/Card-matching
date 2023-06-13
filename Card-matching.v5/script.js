@@ -215,12 +215,12 @@ function clearGame() {
 function reload() {
   stopClock();
   resetClock();
-  // window.location.reload();
-  document.querySelector('.result').style.display = 'none';
-  document.querySelector('.fail_section').style.display = 'none';
-  document.querySelector('.card_section').style.display = 'none';
-  document.querySelector('.main').style.display = 'block';
-  reset();
+  window.location.reload();
+  // document.querySelector('.result').style.display = 'none';
+  // document.querySelector('.fail_section').style.display = 'none';
+  // document.querySelector('.card_section').style.display = 'none';
+  // document.querySelector('.main').style.display = 'block';
+  // reset();
 
 }
 
