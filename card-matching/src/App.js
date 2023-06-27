@@ -4,6 +4,8 @@ import './style.css';
 import Main from "./component/Main";
 import CardList from "./component/CardList";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import GameOver from './component/GameOver';
+import Result from './component/Result';
 
 
 function App() {
@@ -12,6 +14,8 @@ function App() {
       <Routes>
         <Route path ="/" element={<Main/>}/>
         <Route path ="/card" element={<CardList/>}/>
+        <Route path ="/gameover" element={<GameOver/>}/>
+        <Route path ="/result" element={<Result/>}/>
       </Routes>
     </Router>
     
