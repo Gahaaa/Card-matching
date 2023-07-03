@@ -6,7 +6,7 @@ const Hint = () => {
 
   return (
     <div className="hint_section">
-        <a className="btn_hint" href="#;">hint</a>
+        <button className="btn_hint" href="#;">hint</button>
         <p>남은 힌트 : <strong>2</strong></p>
     </div>
     
