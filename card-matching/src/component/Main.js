@@ -9,8 +9,13 @@ const Main = () => {
     const cardImg = [0 , "포켓몬", "마리오"] 
     const [num, setNum] = useState("0");
     const [img, setImg] = useState("0");
+    const [classArr, setClassArr] = useState([]);
+    const [selectedIdxs, setSelectedIdxs] = useState([]);
+    const [animate, setAnimate] = useState(false);
+    const [openAni, setOpenAni] = useState(false);
+    const cardClick = useRef(null);
+
     let randomIndexArray = [];
-    let classArr = [];
 
     // 옵션1 카드 장수
     const handleNum = (e) => {
@@ -44,7 +49,7 @@ const Main = () => {
       return false;
     }
     
-    ulElement.innerHTML = ''; // 기존 카드 엘리먼트 초기화
+    // ulElement.innerHTML = ''; // 기존 카드 엘리먼트 초기화
   
     const cardNumber = num;
   
@@ -62,24 +67,56 @@ const Main = () => {
     for (let i = 0; i < cardNumber * 2; i++) {
       // 카드 클래스 생성
       if (randomIndexArray[i] > cardNumber) {
-        classArr.push(randomIndexArray[i] - cardNumber);
+        setClassArr(classArr => [...classArr, randomIndexArray[i] - cardNumber]);
+        // classArr.push(randomIndexArray[i] - cardNumber);
       } else {
-        classArr.push(randomIndexArray[i]);
+        setClassArr(classArr => [...classArr, randomIndexArray[i]]);
+        // classArr.push(randomIndexArray[i]);
       }
     }
   
     console.log(classArr)
-  
-    // 카드 클릭 이벤트 핸들러 등록
-    // const cardWrap = document.querySelectorAll('.card_section > ul > li .card_wrap');
+
+    startGame()
+  }
+
+const cardOpen = (idx) => {
+    if (!animate) {
+        setSelectedIdxs([...selectedIdxs, idx]); // 클릭한 인덱스를 배열에 추가
+          console.log(selectedIdxs)
+      }
+  };
+  const startGame = () =>{
+
+    document.querySelector('.main').style.display = 'none';
+    document.querySelector('.card_section').style.display = 'block';
+
     // cardWrap.forEach(function(item) {
-    //   item.addEventListener('click', cardOpen);
-    // });
+    //     item.classList.add('on');
+    //   });
+
+    setOpenAni(openAni => true);
+    setAnimate(animate => true);
+    setTimeout(()=>{
+        setOpenAni(openAni => false);
+        setAnimate(animate => false);
+    }, 2500);
+
+    //   animationStop = true;
+    //   setTimeout(function() {
+    //     cardWrap.forEach(function(item) {
+    //       item.classList.remove('on');
+    //     });
+    //     animationStop = false;
+    //   }, 2500);
+
+    
+
+
   }
 
-  const createCard = () =>{
 
-  }
+  
 
 
 
@@ -147,14 +184,35 @@ const Main = () => {
             <ul
             className={img === '마리오'? 'mario' : ''}
             >
-                <li>
+                {
+                    num !== "0" && img !== "0"
+                    ?
+                    classArr.map((item, idx) => (
+                        <li
+                        className={`card0${item}`}
+                        value={item}
+                        key={`card0${idx}`}
+                        >
+                            <div 
+                            className={`card_wrap ${selectedIdxs.includes(idx) ? 'on' : '' || openAni ? 'on' : ''}`}
+                            onClick={() => cardOpen(idx)}
+                            >
+                                <div className="front"></div>
+                                <div className="back"></div>
+                            </div>
+                        </li>
+                    ))
+                    :
+                    ""
+                }
+                {/* <li>
                     <div 
                     className='card_wrap'
                     >
                         <div className="front"></div>
                         <div className="back"></div>
                     </div>
-                </li>
+                </li> */}
             </ul>
         </div>
         <div className="fail_section">
