@@ -138,25 +138,23 @@ document.querySelector('.main .button').addEventListener('click', function() {
 
 function cardOpen() {
   if (!animationStop) {
-    // if(this.indexOf('on') == 0){
-    //   console.log('또 클릭')
-    //   return false;
+    // 동일한 카드 클릭시 게임진행 막음 
+    if(this.classList.contains('on')){
+      console.log('또 클릭')
+      return false;
       
 
-    // }
+    }
     this.classList.add('on');
+   
     cardMatch(this);
   }
 }
 
 
 function cardMatch(cardElement) {
+  console.log(cardElement)
 
-  // 같은 타드 클릭시 뒤집기 방지
-  if(cardElement.classList.contains('on')){
-      return false;
-    
-    }
   const liClass = cardElement.closest('li').className;
 
   console.log(liClass)

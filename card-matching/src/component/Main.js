@@ -13,9 +13,9 @@ const Main = () => {
     const [selectedIdxs, setSelectedIdxs] = useState([]);
     const [animate, setAnimate] = useState(false);
     const [openAni, setOpenAni] = useState(false);
-    const cardClick = useRef(null);
 
     let randomIndexArray = [];
+    const li = document.querySelectorAll('.card_list li');
 
     // 옵션1 카드 장수
     const handleNum = (e) => {
@@ -81,19 +81,60 @@ const Main = () => {
   }
 
 const cardOpen = (idx) => {
+    
     if (!animate) {
+        const liClassOn = li[idx].querySelector('.on');
+        // off 처리 하고싶음
+        const liClassoff = li[idx].querySelector('.off');
+        console.log(liClassoff);
+
+        // 중복클릭 방지
+        if(liClassOn){
+            console.log('중복클릭')
+            return false;
+
+        }
         setSelectedIdxs([...selectedIdxs, idx]); // 클릭한 인덱스를 배열에 추가
-          console.log(selectedIdxs)
+        cardMatch(idx);
+        
+
+        
+          
       }
+      
   };
+
+  const cardMatch = (idx) =>{
+
+    const cardOrder =selectedIdxs[selectedIdxs.length-1];
+    // console.log();
+    // console.log(idx)
+    if(li[cardOrder]){
+        if(li[idx].value === li[cardOrder].value){
+            setTimeout(()=>{
+                li[idx].classList.add('off');
+                li[cardOrder].classList.add('off');
+            },600)
+            
+    
+        }else{
+            setTimeout(()=>{
+                setSelectedIdxs([])
+            },600)
+        }
+
+    }
+    
+    
+    
+
+  }
+
+  
   const startGame = () =>{
 
     document.querySelector('.main').style.display = 'none';
     document.querySelector('.card_section').style.display = 'block';
-
-    // cardWrap.forEach(function(item) {
-    //     item.classList.add('on');
-    //   });
 
     setOpenAni(openAni => true);
     setAnimate(animate => true);
@@ -102,22 +143,7 @@ const cardOpen = (idx) => {
         setAnimate(animate => false);
     }, 2500);
 
-    //   animationStop = true;
-    //   setTimeout(function() {
-    //     cardWrap.forEach(function(item) {
-    //       item.classList.remove('on');
-    //     });
-    //     animationStop = false;
-    //   }, 2500);
-
-    
-
-
   }
-
-
-  
-
 
 
   return (
@@ -182,7 +208,7 @@ const cardOpen = (idx) => {
                 </div>
             </div>
             <ul
-            className={img === '마리오'? 'mario' : ''}
+            className={img === '마리오'? 'card_list mario' : 'card_list'}
             >
                 {
                     num !== "0" && img !== "0"
