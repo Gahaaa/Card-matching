@@ -15,7 +15,7 @@ selectedElement2.addEventListener('change', function() {
   optionVal2 = selectedElement2.options[selectedElement2.selectedIndex].value;
 });
 
-// 카드 세팅
+/** 카드세팅*/
 function setGame() {
 
   const mainBtn= document.querySelector('.main .button'); 
@@ -138,6 +138,12 @@ document.querySelector('.main .button').addEventListener('click', function() {
 
 function cardOpen() {
   if (!animationStop) {
+    // if(this.indexOf('on') == 0){
+    //   console.log('또 클릭')
+    //   return false;
+      
+
+    // }
     this.classList.add('on');
     cardMatch(this);
   }
@@ -145,6 +151,12 @@ function cardOpen() {
 
 
 function cardMatch(cardElement) {
+
+  // 같은 타드 클릭시 뒤집기 방지
+  if(cardElement.classList.contains('on')){
+      return false;
+    
+    }
   const liClass = cardElement.closest('li').className;
 
   console.log(liClass)
