@@ -1,8 +1,11 @@
 import React from 'react'
-// import CardList from "./CardList";
-// import GameOver from './GameOver';
-// import Result from './Result';
 import {useState, useRef, useEffect } from 'react';
+
+import Hint from './Hint';
+import StopWatch from './StopWatch';
+import Life from './Life';
+import GameOver from './GameOver';
+import Result from './Result';
 
 const Main = () => {
     // 카드 장수 값
@@ -96,9 +99,9 @@ const Main = () => {
         }
 
     startGame()
-  }
+    }
 
-//    카드 클릭 애니메이션 
+    //    카드 클릭 애니메이션 
     const cardOpen = (idx) => {
         
         if (!animate) {
@@ -186,24 +189,6 @@ const Main = () => {
 
   }
 
-//   힌트 노출
-  const useHint = () =>{
-    if(hint === 0){
-        console.log('힌트소진');
-
-        return false;
-    }
-    setHint(hint => hint-1);
-    setOpenAni(openAni => true);
-    setAnimate(animate => true);
-    setTimeout(()=>{
-        setOpenAni(openAni => false);
-        setAnimate(animate => false);
-    }, 2500);
-
-
-  }
-
 //   목숨 카운트 다운
   const removeLife = () =>{
     lifeLi[life].classList.add('off');
@@ -220,21 +205,6 @@ const Main = () => {
     setLife(life => life+1);
   }
 
-
-//   타이머
-  useEffect(() => {
-    let timerId;
-
-    if (isRunning) {
-      timerId = setTimeout(() => {
-        setTime((prevTime) => prevTime + 1);
-      }, 1000);
-    }
-
-    return () => {
-      clearTimeout(timerId);
-    };
-  }, [time, isRunning]);
 
   const startTimer = () => {
     setIsRunning(true);
@@ -259,8 +229,9 @@ const Main = () => {
     stopTimer();
   }
 
-//   새로고침
-  const reload = () =>{
+
+  //초기화 함수
+  function reload(){
     document.querySelector('.card_section').style.display = 'none';
     document.querySelector('.fail_section').style.display = 'none';
     document.querySelector('.result').style.display = 'none';
@@ -272,13 +243,23 @@ const Main = () => {
     setLife(life => life=0);
     setTime(time => time=0);
     setSelectedValue(selectedValue=> selectedValue=0);
+    setClassArr([]);
+    setSelectedIdxs([]);
 
-    // 목숨 클래스 수정
-    // lifeLi.forEach({
-    //     lifeLi.classList.remove('off');
-    // })
+    
+
+    document.querySelector("#card_option1").options[0].selected=true;
+    document.querySelector("#card_option2").options[0].selected=true;
+
+    let liArr = [...lifeLi];
+    liArr.map(el=>{
+        el.classList.remove('off')
+
+    })
+
+    document.querySelector('.btn_hint').classList.remove('off');
+
   }
-  
 
 
   return (
@@ -287,7 +268,7 @@ const Main = () => {
             <h2>카드 뒤집기</h2>
             <div className="select_area">
                 <select
-                id='card_option' 
+                id='card_option1' 
                 onChange={handleNum}
                 defaultValue={selectedValue}
                 >
@@ -301,6 +282,7 @@ const Main = () => {
                     ))}
                 </select>
                 <select
+                id='card_option2' 
                 onChange={handleImg}
                 defaultValue={selectedValue}
                 >
@@ -328,24 +310,21 @@ const Main = () => {
                 >
                     go-back
                 </button>
-                <div className="hint_section">
-                    <button 
-                    className={`btn_hint ${hint === 0? 'off': ''}`}
-                    onClick={useHint} 
-                    >hint
-                    </button>
-                    <p>남은 힌트 : <strong>{hint}</strong></p>
-                </div>
-                <div>
-                    <p id="stopwatch" >{getTimeFormatString(time)}</p>
-                </div>
-                <div className="life">
-                    <ul>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                    </ul>
-                </div>
+                <Hint
+                hint={hint}
+                setHint={setHint}
+                openAni={openAni}
+                setOpenAni={setOpenAni}
+                animate={animate}
+                setAnimate={setAnimate}
+                />
+                <StopWatch
+                isRunning={isRunning}
+                setTime={setTime}
+                time={time}
+                getTimeFormatString={getTimeFormatString}
+                />
+                <Life/>
             </div>
             <ul
             className={img === '마리오'? 'card_list mario' : 'card_list'}
@@ -373,47 +352,18 @@ const Main = () => {
                 }
             </ul>
         </div>
-        <div className="fail_section">
-            <h2>😥Game over😥</h2>
-            <button 
-            className="button" 
-            onClick={reload}>
-                RETRY
-            </button>
-        </div>
-        <div className="result">
-            <h2>🎉축하합니다🎉</h2>
-            <button 
-            className="button"
-            onClick={reload}>
-                RETRY
-            </button>
-            <div className="record">
-                <h3>기록</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>카드</th>
-                            <th>힌트사용</th>
-                            <th>틀린 개수</th>
-                            <th>걸린 시간</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>{img}</td>
-                        <td>{hint}</td>
-                        <td>{life}</td>
-                        <td>{getTimeFormatString(time)}</td>
-                    </tr>                        
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
+        <GameOver
+        reload={reload}
+        />
+        <Result
+        reload={reload}
+        img={img}
+        hint={hint}
+        life={life}
+        time={time}
+        getTimeFormatString={getTimeFormatString}
+        />
     </div>
-    
-    
   )
 }
 

@@ -1,12 +1,27 @@
 import React from 'react'
+import {useEffect } from 'react';
 
-const StopWatch = () => {
+const StopWatch = ({isRunning, time, setTime,getTimeFormatString}) => {
+  //   타이머
+  useEffect(() => {
+    let timerId;
+
+    if (isRunning) {
+      timerId = setTimeout(() => {
+        setTime((prevTime) => prevTime + 1);
+      }, 1000);
+    }
+
+    return () => {
+      clearTimeout(timerId);
+    };
+  }, [time, isRunning]);
 
 
 
   return (
     <div>
-        <p id="stopwatch" >00:00:00</p>
+        <p id="stopwatch" >{getTimeFormatString(time)}</p>
     </div>
     
     

@@ -1,6 +1,8 @@
 import React from 'react'
 
 const Life = () => {
+  //   목숨 카운트 다운
+  
 
   return (
     <div className="life">
