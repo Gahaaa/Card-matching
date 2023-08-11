@@ -191,7 +191,10 @@ const Main = () => {
 
 //   목숨 카운트 다운
   const removeLife = () =>{
-    lifeLi[life].classList.add('off');
+    setTimeout(()=>{
+        lifeLi[life].classList.add('off');
+    }, 500)
+
     if(life === lifeLi.length-1){
         console.log('목숨xxx')
         setTimeout(()=>{
@@ -237,8 +240,8 @@ const Main = () => {
     document.querySelector('.result').style.display = 'none';
     document.querySelector('.main').style.display = 'block';
 
-    setNum(num => num=0);
-    setImg(img => img=0);
+    setNum("0");
+    setImg(img => img="0");
     setHint(hint => hint=2);
     setLife(life => life=0);
     setTime(time => time=0);
@@ -258,14 +261,13 @@ const Main = () => {
     })
 
     document.querySelector('.btn_hint').classList.remove('off');
-
   }
 
 
   return (
     <div className='wrap'>
         <div className="main">
-            <h2>카드 뒤집기</h2>
+            <h2>CARD MATHING</h2>
             <div className="select_area">
                 <select
                 id='card_option1' 
@@ -358,6 +360,7 @@ const Main = () => {
         <Result
         reload={reload}
         img={img}
+        num={num}
         hint={hint}
         life={life}
         time={time}

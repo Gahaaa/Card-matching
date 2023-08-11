@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Result = ({reload, img, hint, life, time, getTimeFormatString}) => {
+const Result = ({reload, img, num, hint, life, time, getTimeFormatString}) => {
 
   return (
     <div className="result">
@@ -16,6 +16,7 @@ const Result = ({reload, img, hint, life, time, getTimeFormatString}) => {
                 <thead>
                     <tr>
                         <th>카드</th>
+                        <th>카드 장수</th>
                         <th>힌트사용</th>
                         <th>틀린 개수</th>
                         <th>걸린 시간</th>
@@ -24,8 +25,9 @@ const Result = ({reload, img, hint, life, time, getTimeFormatString}) => {
                 <tbody>
                 <tr>
                     <td>{img}</td>
-                    <td>{hint}</td>
-                    <td>{life}</td>
+                    <td>{num*2} 장</td>
+                    <td>{hint} 번</td>
+                    <td>{life} 개</td>
                     <td>{getTimeFormatString(time)}</td>
                 </tr>                        
                 </tbody>
